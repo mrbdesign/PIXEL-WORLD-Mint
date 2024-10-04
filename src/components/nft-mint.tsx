@@ -1,5 +1,7 @@
 "use client";
 
+import { createThirdwebClient } from "thirdweb";
+import { createWallet } from "thirdweb/wallets";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -17,7 +19,10 @@ import {
 	NFT,
 	useActiveAccount,
 } from "thirdweb/react";
-import { client } from "@/lib/thirdwebClient";
+const client = createThirdwebClient({
+	clientId: "8b384a8100c687ea6ddc8f3b508965af", // Replace with your actual client ID
+  });
+  
 import React from "react";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
@@ -41,6 +46,12 @@ export function NftMint(props: Props) {
 	const [useCustomAddress, setUseCustomAddress] = useState(false);
 	const [customAddress, setCustomAddress] = useState("");
 	const { theme, setTheme } = useTheme();
+	//Add the wallets array right after the client creation:
+    const wallets = [
+    createWallet("io.metamask"),
+    createWallet("com.coinbase.wallet"),
+    createWallet("me.rainbow"),
+    ];
 	const account = useActiveAccount();
 
 	const decreaseQuantity = () => {
@@ -66,10 +77,22 @@ export function NftMint(props: Props) {
 		return null;
 	}
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
-			<div className="absolute top-4 right-4">
-				<ConnectButton client={client} />
+		<div className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat transition-colors duration-200" style={{backgroundImage: "url('/background.png')"}}>
+
+			{/*<div className="absolute top-4 right-4">
+			<ConnectButton
+             client={client}
+             wallets={wallets}
+             theme={"light"}
+             connectModal={{
+             size: "compact",
+             title: "Let's Friggin' Go !",
+             titleIcon: "https://imgur.com/a/YcTXdHJ",
+             showThirdwebBranding: false,
+             }}
+            />
 			</div>
+			*/}
 
 			{/* <Button
 				variant="outline"
@@ -106,7 +129,7 @@ export function NftMint(props: Props) {
 							/>
 						)}
 						<div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-sm font-semibold">
-							{props.pricePerToken} {props.currencySymbol}/each
+							{props.pricePerToken} {props.currencySymbol}
 						</div>
 					</div>
 					<h2 className="text-2xl font-bold mb-2 dark:text-white">
@@ -218,9 +241,17 @@ export function NftMint(props: Props) {
 						</ClaimButton>
 					) : (
 						<ConnectButton
-							client={client}
-							connectButton={{ style: { width: "100%" } }}
-						/>
+                         client={client}
+                         wallets={wallets}
+                         theme={"light"}
+                         connectModal={{
+                          size: "compact",
+                          title: "Let's Friggin' Go !",
+                          titleIcon: "icon.ico",
+                          showThirdwebBranding: false,
+                        }}
+                        connectButton={{ style: { width: "100%" } }}
+                     />
 					)}
 				</CardFooter>
 			</Card>

@@ -1,3 +1,4 @@
+
 import { NftMint } from "@/components/nft-mint";
 import {
 	defaultChainId,
