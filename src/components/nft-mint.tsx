@@ -219,7 +219,7 @@ export function NftMint(props: Props) {
               connectModal={{
                 size: "compact",
                 title: "Let's Friggin' Go !",
-                titleIcon: "/icon.ico", // Updated path
+                //titleIcon: "/icon.ico", // Updated path
                 showThirdwebBranding: false,
               }}
               connectButton={{ style: { width: "100%" } }}
