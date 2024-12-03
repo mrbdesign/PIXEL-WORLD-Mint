@@ -1,7 +1,5 @@
 "use client";
 
-/* Random Comment */
-
 import { NftMint } from "@/components/nft-mint";
 import {
 	defaultChainId,
